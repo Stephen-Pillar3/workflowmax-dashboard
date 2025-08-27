@@ -1,0 +1,363 @@
+/* CAS Analysis Dashboard - Custom Styles */
+
+/* Professional CAS Analysis Color Palette */
+:root {
+  --cas-primary: #2c3e50;          /* Dark blue-gray */
+  --cas-secondary: #6ba6a6;        /* Teal-green */
+  --cas-accent: #4a8cc7;           /* Professional blue */
+  --cas-success: #10b981;          /* Success green */
+  --cas-warning: #f59e0b;          /* Warning amber */
+  --cas-danger: #ef4444;           /* Error red */
+  --cas-light: #f8fafc;           /* Light background */
+  --cas-dark: #1e293b;            /* Dark text */
+}
+
+/* Base Typography - Matching Professional Software */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--cas-dark);
+}
+
+/* Professional Sidebar Styling */
+.sidebar {
+  background: linear-gradient(180deg, var(--cas-primary) 0%, #34495e 100%);
+  border-right: 1px solid #e2e8f0;
+}
+
+/* Card Styling - CAS Professional Look */
+.cas-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.cas-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+/* KPI Cards */
+.kpi-card {
+  background: white;
+  border-left: 4px solid var(--cas-accent);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.kpi-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cas-primary);
+  margin: 0.5rem 0;
+}
+
+.kpi-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+/* Chart Container */
+.chart-container {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.chart-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--cas-primary);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--cas-accent);
+}
+
+/* Navigation Active State */
+.nav-active {
+  background: var(--cas-accent) !important;
+  color: white;
+  border-radius: 6px;
+}
+
+.nav-active i {
+  color: white;
+}
+
+/* Button Styling - CAS Professional */
+.cas-btn {
+  background: var(--cas-accent);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.cas-btn:hover {
+  background: #3a7bb8;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(74, 140, 199, 0.3);
+}
+
+.cas-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Professional Data Tables */
+.cas-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cas-table th {
+  background: var(--cas-primary);
+  color: white;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cas-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  color: var(--cas-dark);
+}
+
+.cas-table tr:hover {
+  background: #f8fafc;
+}
+
+/* Currency and Number Formatting */
+.currency {
+  font-weight: 600;
+  color: var(--cas-success);
+}
+
+.percentage {
+  font-weight: 600;
+}
+
+.percentage.positive {
+  color: var(--cas-success);
+}
+
+.percentage.negative {
+  color: var(--cas-danger);
+}
+
+/* Performance Indicators */
+.performance-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.performance-excellent {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.performance-good {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.performance-poor {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Loading States */
+.loading-spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #e2e8f0;
+  border-top: 2px solid var(--cas-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Alert Styling */
+.cas-alert {
+  padding: 1rem;
+  border-radius: 6px;
+  margin: 1rem 0;
+  border-left: 4px solid;
+}
+
+.cas-alert-info {
+  background: #eff6ff;
+  border-color: var(--cas-accent);
+  color: #1e3a8a;
+}
+
+.cas-alert-success {
+  background: #f0fdf4;
+  border-color: var(--cas-success);
+  color: #166534;
+}
+
+.cas-alert-warning {
+  background: #fffbeb;
+  border-color: var(--cas-warning);
+  color: #92400e;
+}
+
+.cas-alert-danger {
+  background: #fef2f2;
+  border-color: var(--cas-danger);
+  color: #991b1b;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    position: relative;
+    height: auto;
+  }
+  
+  .main-content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+  
+  .kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .sidebar,
+  .no-print {
+    display: none !important;
+  }
+  
+  .main-content {
+    margin-left: 0;
+  }
+  
+  .cas-card,
+  .chart-container {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+/* Focus and Accessibility */
+.cas-btn:focus,
+.cas-input:focus {
+  outline: 2px solid var(--cas-accent);
+  outline-offset: 2px;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--cas-secondary);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--cas-accent);
+}
+
+/* Status Indicators */
+.status-online {
+  color: var(--cas-success);
+}
+
+.status-offline {
+  color: var(--cas-danger);
+}
+
+.status-pending {
+  color: var(--cas-warning);
+}
+
+/* Professional Grid Layout */
+.cas-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.cas-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.cas-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.cas-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 1024px) {
+  .cas-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .cas-grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .cas-grid-2,
+  .cas-grid-3,
+  .cas-grid-4 { 
+    grid-template-columns: 1fr; 
+  }
+}

@@ -9,7 +9,7 @@ pids
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build
-dist
+# dist - temporarily included for Cloudflare Pages deployment
 
 # dotenv environment variables file
 .env

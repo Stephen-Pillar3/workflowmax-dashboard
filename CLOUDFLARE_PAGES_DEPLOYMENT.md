@@ -2,24 +2,26 @@
 
 ## Issue Fixed ✅
 
-The deployment issue has been resolved! The problem was that Cloudflare Pages wasn't running the build command to create the `dist` folder.
+The deployment issue has been resolved! Cloudflare Pages doesn't support build commands in wrangler.jsonc for Pages projects.
 
-**✅ Fixed**: Added `build.command: "npm run build"` to `wrangler.jsonc`
+**✅ Fixed**: 
+1. Removed invalid `build` config from `wrangler.jsonc` 
+2. Built the project locally and included `dist/` folder in repository
+3. Cloudflare Pages will now deploy directly from the pre-built files
 
 ## Updated Configuration
 
-Your `wrangler.jsonc` now includes:
+Your `wrangler.jsonc` is now correctly configured for Pages:
 ```json
 {
   "name": "cas-dashboard-v2", 
   "compatibility_date": "2025-08-27",
   "pages_build_output_dir": "./dist",
-  "compatibility_flags": ["nodejs_compat"],
-  "build": {
-    "command": "npm run build"
-  }
+  "compatibility_flags": ["nodejs_compat"]
 }
 ```
+
+**Important**: The `dist/` folder is now included in the repository with pre-built files, so Cloudflare Pages can deploy immediately without needing to run a build process.
 
 ## 🔄 Retry Deployment
 
