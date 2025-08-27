@@ -1,23 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "cas-analysis-dashboard",
-  "main": "src/index.tsx",
+  "name": "cas-dashboard-v2",
   "compatibility_date": "2025-08-27",
   "pages_build_output_dir": "./dist",
-  "compatibility_flags": ["nodejs_compat"],
-  
-  "kv_namespaces": [
-    {
-      "binding": "workflowmaxKV",
-      "id": "d6882a2470a240c197916425a35f225b"
-    }
-  ],
-  
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "workflowmax_d1",
-      "database_id": "7416cbc0-780f-4202-996f-b52709e27aed"
-    }
-  ]
+  "compatibility_flags": ["nodejs_compat"]
 }
