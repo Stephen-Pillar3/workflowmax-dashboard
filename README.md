@@ -20,8 +20,9 @@ A comprehensive accounting dashboard with WorkflowMax API integration designed f
 
 ### Deployment Status
 - **Local Development**: ✅ **Running** on PM2 (2 apps: webapp, webapp-d1)
-- **Cloudflare Pages**: ⏳ **Pending** (API token permissions issue)
+- **Cloudflare Pages**: ⚠️ **API Token Permissions Issue** (Ready for manual deployment)
 - **Production Ready**: ✅ **Yes** (Built and tested)
+- **Deployment Package**: ✅ **Available** (`cas-dashboard-deployment.tar.gz`)
 
 ## 🎯 Project Overview
 
@@ -180,11 +181,11 @@ The project is built and ready for deployment to Cloudflare Pages. There's curre
    - Cloudflare Pages:Edit
    - Zone:Read (if using custom domain)
 
-### **Next Steps for Production Deployment**
-1. **Update API Token**: Add Cloudflare Pages:Edit permission
-2. **Deploy**: `npx wrangler pages deploy dist --project-name cas-analysis-dashboard`
-3. **Configure Domain**: Set up custom domain if needed
-4. **Environment Variables**: Configure production secrets
+### **Deployment Options**
+1. **Fix API Token**: Add Cloudflare Pages:Edit permission, then run `npx wrangler pages deploy dist --project-name cas-dashboard-v2`
+2. **Manual Upload**: Use Cloudflare Dashboard → Pages → Upload Assets (see `MANUAL_DEPLOYMENT_GUIDE.md`)
+3. **GitHub Integration**: Push to GitHub and connect Pages project (requires GitHub setup)
+4. **Deployment Package**: Use `cas-dashboard-deployment.tar.gz` for any upload method
 
 ## 💼 **Business Value**
 
