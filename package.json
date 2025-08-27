@@ -1,0 +1,146 @@
+{
+  "name": "cas-analysis-dashboard",
+  "version": "3.0.0",
+  "description": "Professional CAS Analysis Dashboard with WorkflowMax integration",
+  "type": "module",
+  "keywords": ["accounting", "dashboard", "workflowmax", "cas", "analytics"],
+  "author": "Your Company",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "dev:sandbox": "wrangler pages dev dist --ip 0.0.0.0 --port 3000",
+    "dev:d1": "wrangler pages dev dist --d1=cas-dashboard-prod --local --ip 0.0.0.0 --port 3000",
+    "dev:preview": "wrangler pages dev dist --env preview --ip 0.0.0.0 --port 3000",
+    
+    "build": "vite build",
+    "build:prod": "NODE_ENV=production vite build --config vite.production.config.ts",
+    "build:preview": "NODE_ENV=preview vite build --mode preview",
+    "build:analyze": "ANALYZE_BUNDLE=true npm run build:prod",
+    
+    "preview": "wrangler pages dev dist",
+    "preview:prod": "wrangler pages dev dist --env production",
+    
+    "deploy": "npm run build && wrangler pages deploy dist",
+    "deploy:prod": "npm run build:prod && wrangler pages deploy dist --project-name cas-analysis-dashboard --env production",
+    "deploy:preview": "npm run build:preview && wrangler pages deploy dist --project-name cas-analysis-dashboard --env preview",
+    
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "cf-login": "wrangler login",
+    "cf-whoami": "wrangler whoami",
+    
+    "db:create": "wrangler d1 create cas-dashboard-prod",
+    "db:migrate": "wrangler d1 migrations apply cas-dashboard-prod --env production",
+    "db:migrate:local": "wrangler d1 migrations apply cas-dashboard-prod --local",
+    "db:seed": "wrangler d1 execute cas-dashboard-prod --env production --file=./setup/seed-data.sql",
+    "db:seed:local": "wrangler d1 execute cas-dashboard-prod --local --file=./setup/seed-data.sql",
+    "db:reset": "rm -rf .wrangler/state/v3/d1 && npm run db:migrate:local && npm run db:seed:local",
+    "db:console": "wrangler d1 execute cas-dashboard-prod --env production",
+    "db:console:local": "wrangler d1 execute cas-dashboard-prod --local",
+    "db:backup": "node scripts/backup-database.js",
+    
+    "kv:create": "wrangler kv:namespace create SESSIONS --env production && wrangler kv:namespace create CACHE --env production && wrangler kv:namespace create RATE_LIMIT --env production",
+    "kv:list": "wrangler kv:namespace list",
+    "kv:clear": "wrangler kv:key list --binding=SESSIONS --env production | jq -r '.[].name' | xargs -I {} wrangler kv:key delete --binding=SESSIONS {} --env production",
+    
+    "r2:create": "wrangler r2 bucket create cas-dashboard-storage",
+    "r2:list": "wrangler r2 bucket list",
+    
+    "secrets:list": "wrangler secret list --env production",
+    "secrets:set": "wrangler secret put",
+    
+    "clean": "rm -rf dist node_modules/.vite",
+    "clean:all": "rm -rf dist node_modules package-lock.json && npm install",
+    "clean-port": "fuser -k 3000/tcp 2>/dev/null || true",
+    
+    "test": "curl http://localhost:3000",
+    "test:api": "curl http://localhost:3000/api/health",
+    "test:prod": "curl https://cas-analysis-dashboard.pages.dev/api/health",
+    "test:performance": "lighthouse https://cas-analysis-dashboard.pages.dev --output=html --output-path=./reports/lighthouse.html",
+    
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write 'src/**/*.{ts,tsx,css}'",
+    "format:check": "prettier --check 'src/**/*.{ts,tsx,css}'",
+    
+    "security:headers": "node scripts/check-security-headers.js",
+    "security:deps": "npm audit && npm audit fix",
+    "security:scan": "node scripts/security-scan.js",
+    
+    "backup:config": "./scripts/backup-config.sh",
+    "backup:full": "npm run db:backup && npm run backup:config",
+    
+    "logs": "wrangler pages deployment tail --project-name cas-analysis-dashboard",
+    "logs:prod": "wrangler pages deployment tail --project-name cas-analysis-dashboard --env production",
+    
+    "setup:admin": "node scripts/setup-admin.js",
+    "setup:env": "node scripts/setup-environment.js",
+    "setup:production": "npm run setup:env && npm run db:migrate && npm run setup:admin",
+    
+    "monitor:analytics": "node scripts/monitor-analytics.js",
+    "monitor:performance": "node scripts/monitor-performance.js",
+    "monitor:uptime": "node scripts/monitor-uptime.js",
+    
+    "git:init": "git init && git add . && git commit -m 'Initial commit'",
+    "git:commit": "git add . && git commit -m",
+    "git:status": "git status",
+    "git:log": "git log --oneline -10",
+    "git:push:prod": "git push origin main",
+    "git:push:preview": "git push origin preview",
+    
+    "ci:build": "npm ci && npm run type-check && npm run lint && npm run build:prod",
+    "ci:test": "npm run test:api && npm run security:headers",
+    "ci:deploy": "npm run ci:build && npm run deploy:prod"
+  },
+  "dependencies": {
+    "hono": "^4.9.4",
+    "@hono/vite-cloudflare-pages": "^0.4.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250705.0",
+    "@hono/vite-build": "^1.2.0", 
+    "@hono/vite-dev-server": "^0.18.2",
+    "typescript": "^5.0.0",
+    "vite": "^6.3.5",
+    "wrangler": "^4.4.0",
+    
+    "@types/node": "^20.0.0",
+    
+    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    
+    "prettier": "^3.0.0",
+    
+    "rollup-plugin-visualizer": "^5.0.0",
+    
+    "autoprefixer": "^10.0.0",
+    "cssnano": "^6.0.0",
+    "postcss": "^8.0.0",
+    
+    "terser": "^5.0.0",
+    
+    "lighthouse": "^11.0.0",
+    
+    "@sentry/browser": "^7.0.0",
+    "@sentry/tracing": "^7.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions", 
+    "not dead",
+    "not ie <= 11"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/cas-analysis-dashboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/cas-analysis-dashboard/issues"
+  },
+  "homepage": "https://cas-analysis-dashboard.pages.dev"
+}
